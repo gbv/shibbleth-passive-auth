@@ -41,20 +41,18 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.mycore.backend.jpa.dnbtransfer.MCRDNBTRANSFERRESULTS_.objectId;
 
 public class VZGPassiveAuthFilter implements Filter {
 
     private static final Logger LOGGER = LogManager.getLogger(MCRShibbolethLoginServlet.class);
 
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        Filter.super.init(filterConfig);
+        //Filter.super.init(filterConfig);
     }
 
     @Override

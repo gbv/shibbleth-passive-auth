@@ -21,7 +21,6 @@ package de.vzg.shibboleth;
 import org.mycore.common.events.MCRStartupHandler;
 
 import javax.servlet.DispatcherType;
-import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import java.util.EnumSet;
 
