@@ -18,11 +18,10 @@
 
 package de.vzg.shibboleth;
 
+import org.apache.logging.log4j.LogManager;
 import org.mycore.common.events.MCRStartupHandler;
 
-import javax.servlet.DispatcherType;
 import javax.servlet.ServletContext;
-import java.util.EnumSet;
 
 public class VZGAuthFilterRegister implements MCRStartupHandler.AutoExecutable {
     @Override
@@ -38,8 +37,9 @@ public class VZGAuthFilterRegister implements MCRStartupHandler.AutoExecutable {
     @Override
     public void startUp(ServletContext servletContext) {
         if (servletContext != null) {
+            LogManager.getLogger().info("Install PassiveAuthFilter");
            servletContext.addFilter("PassiveAuthFilter", VZGPassiveAuthFilter.class.getName())
-                   .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), false, "/*");
+                   .addMappingForUrlPatterns(null, false, "/*");
         }
     }
 }
