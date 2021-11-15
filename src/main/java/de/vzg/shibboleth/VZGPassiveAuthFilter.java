@@ -80,10 +80,10 @@ public class VZGPassiveAuthFilter implements Filter {
             MCRServlet.initializeMCRSession(req, getClass().getName());
             MCRFrontendUtil.configureSession(MCRSessionMgr.getCurrentSession(), req, resp);
             if (userId != null && userId.trim().length() > 0) {
-                LOGGER.info("login {}", userId);
+                LOGGER.debug("User present in Shibboleth login {}", userId);
                 handleLogin(req, userId);
             } else if (MCRSessionMgr.getCurrentSession().getUserInformation() instanceof MCRShibbolethUserInformation) {
-                LOGGER.info("Logout {}", MCRSessionMgr.getCurrentSession().getUserInformation().getUserID());
+                LOGGER.debug("Logout {}", MCRSessionMgr.getCurrentSession().getUserInformation().getUserID());
                 handleLogout(req);
             }
         } catch (Exception e) {
