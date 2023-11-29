@@ -18,10 +18,11 @@
 
 package de.vzg.shibboleth;
 
+import jakarta.servlet.ServletContext;
 import org.apache.logging.log4j.LogManager;
 import org.mycore.common.events.MCRStartupHandler;
 
-import javax.servlet.ServletContext;
+
 
 public class VZGAuthFilterRegister implements MCRStartupHandler.AutoExecutable {
     @Override
