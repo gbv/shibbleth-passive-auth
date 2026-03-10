@@ -16,24 +16,19 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with MyCoRe.  If not, see <http://www.gnu.org/licenses/>.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.mycore</groupId>
-    <artifactId>mycore-parent</artifactId>
-    <version>51</version>
+    <groupId>de.gbv.reposis</groupId>
+    <artifactId>reposis_parent</artifactId>
+    <version>2023.06-SNAPSHOT</version>
   </parent>
 
-  <groupId>de.vzg</groupId>
   <artifactId>shibboleth-passive-auth-plugin</artifactId>
-  <version>2022.06.3-SNAPSHOT</version>
-
-  <properties>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
-    <mycore.version>2022.06.3-SNAPSHOT</mycore.version>
-  </properties>
+  <version>2023.06-SNAPSHOT</version>
 
   <build>
     <plugins>
@@ -45,7 +40,7 @@
             <manifestEntries>
               <MCR-Artifact-Id>${project.artifactId}</MCR-Artifact-Id>
               <MCR-Application-Module>${project.name}</MCR-Application-Module>
-              <Priority>99</Priority>
+              <Priority>95</Priority>
               <MCR-Auto-Deploy>true</MCR-Auto-Deploy>
             </manifestEntries>
           </archive>
@@ -55,15 +50,6 @@
   </build>
 
   <repositories>
-    <!-- central is required for bibsonomy not to take over every artifact -->
-    <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>central</id>
-      <name>Central Repository</name>
-      <url>https://repo.maven.apache.org/maven2</url>
-    </repository>
     <repository>
       <releases>
         <enabled>false</enabled>
@@ -71,18 +57,12 @@
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </repository>
-    <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>dev.bibsonomy.org</id>
-      <name>Official Source Code Releases of selected BibSonomy Modules</name>
-      <url>https://dev.bibsonomy.org/maven2/</url>
+      <id>central-portal-snapshots</id>
+      <name>Central Portal Snapshots</name>
+      <url>https://central.sonatype.com/repository/maven-snapshots/</url>
     </repository>
   </repositories>
+
   <dependencies>
     <dependency>
       <groupId>jakarta.servlet</groupId>
@@ -100,7 +80,13 @@
       <groupId>org.mycore</groupId>
       <artifactId>mycore-user2</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
+
   <dependencyManagement>
     <dependencies>
       <dependency>

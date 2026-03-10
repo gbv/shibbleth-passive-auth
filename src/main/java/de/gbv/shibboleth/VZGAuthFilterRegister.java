@@ -16,13 +16,11 @@
  * along with MyCoRe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.vzg.shibboleth;
+package de.gbv.shibboleth;
 
 import jakarta.servlet.ServletContext;
 import org.apache.logging.log4j.LogManager;
 import org.mycore.common.events.MCRStartupHandler;
-
-
 
 public class VZGAuthFilterRegister implements MCRStartupHandler.AutoExecutable {
     @Override

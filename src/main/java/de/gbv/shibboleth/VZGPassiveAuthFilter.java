@@ -16,12 +16,13 @@
  * along with MyCoRe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.vzg.shibboleth;
+package de.gbv.shibboleth;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mycore.common.MCRSessionMgr;
 import org.mycore.common.MCRSystemUserInformation;
+import org.mycore.common.MCRTransactionHelper;
 import org.mycore.common.MCRUserInformation;
 import org.mycore.frontend.MCRFrontendUtil;
 import org.mycore.frontend.filter.MCRCORSFilter;
@@ -34,7 +35,6 @@ import org.mycore.user2.login.MCRShibbolethUserInformation;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
@@ -46,14 +46,11 @@ import java.util.Map;
 
 public class VZGPassiveAuthFilter implements Filter {
 
-    private static final Logger LOGGER = LogManager.getLogger(VZGPassiveAuthFilter.class);
-
-    public void init(FilterConfig filterConfig) throws ServletException {
-    }
+    private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
     public void destroy() {
-        LOGGER.info("destroying {}", MCRCORSFilter.class.getSimpleName());
+        LOGGER.info("destroying {}", MCRCORSFilter.class::getSimpleName);
     }
 
     @Override
@@ -78,7 +75,7 @@ public class VZGPassiveAuthFilter implements Filter {
         try {
             MCRServlet.initializeMCRSession(req, getClass().getName());
             MCRFrontendUtil.configureSession(MCRSessionMgr.getCurrentSession(), req, resp);
-            if (userId != null && userId.trim().length() > 0) {
+            if (userId != null && !userId.trim().isEmpty()) {
                 LOGGER.debug("User present in Shibboleth login {}", userId);
                 handleLogin(req, userId);
             } else if (MCRSessionMgr.getCurrentSession().getUserInformation() instanceof MCRShibbolethUserInformation) {
@@ -88,7 +85,7 @@ public class VZGPassiveAuthFilter implements Filter {
         } catch (Exception e) {
             LOGGER.info("Error while passive login!", e);
             if (MCRSessionMgr.hasCurrentSession()) {
-                MCRSessionMgr.getCurrentSession().rollbackTransaction();
+                MCRTransactionHelper.rollbackTransaction();
             }
         } finally {
             MCRServlet.cleanupMCRSession(req, getClass().getName());
